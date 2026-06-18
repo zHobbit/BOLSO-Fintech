@@ -1,0 +1,306 @@
+/* =====================================================================
+   Bolso — Dashboard
+   Estilos personalizados (complementam o Tailwind CSS via CDN)
+   Identidade visual: Dark + Neon (verde esmeralda sobre fundo escuro)
+   Tipografia: Space Grotesk (títulos) + DM Sans (corpo)
+   ===================================================================== */
+
+:root {
+  --ff-bg:        #07100c; /* fundo principal (verde-quase-preto OLED) */
+  --ff-surface:   #0d1a14; /* cartões / sidebar */
+  --ff-surface-2: #122418; /* superfícies elevadas */
+  --ff-border:    #1c3328; /* bordas suaves */
+  --ff-neon:      #10b981; /* verde neon (emerald) */
+  --ff-neon-2:    #a3e635; /* lime — destaque secundário */
+  --ff-text:      #e7f0ea; /* texto principal */
+  --ff-muted:     #7d998c; /* texto secundário */
+  --ff-red:       #fb7185; /* despesas / saídas */
+  --ff-blue:      #38bdf8; /* receitas */
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+* {
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+body {
+  background-color: var(--ff-bg);
+  color: var(--ff-text);
+  /* brilho radial + textura de pontos para dar atmosfera e profundidade */
+  background-image:
+    radial-gradient(900px circle at 8% -5%, rgba(16, 185, 129, 0.10), transparent 42%),
+    radial-gradient(700px circle at 105% 105%, rgba(163, 230, 53, 0.06), transparent 40%),
+    radial-gradient(rgba(125, 153, 140, 0.07) 1px, transparent 1px);
+  background-size: auto, auto, 22px 22px;
+  background-attachment: fixed;
+}
+
+/* ---------- Efeito de brilho neon ---------- */
+.neon-text {
+  color: var(--ff-neon);
+  text-shadow: 0 0 14px rgba(16, 185, 129, 0.45);
+}
+
+.neon-border {
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.06),
+              0 0 22px rgba(16, 185, 129, 0.12);
+}
+
+.neon-glow {
+  box-shadow: 0 0 18px rgba(16, 185, 129, 0.35);
+}
+
+/* faixa superior colorida dos cards de resumo */
+.card-top-line { position: relative; overflow: hidden; }
+.card-top-line::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent, var(--ff-neon));
+  box-shadow: 0 0 12px var(--accent, var(--ff-neon));
+}
+
+/* ---------- Cartão Bolso (assinatura visual da marca) ---------- */
+.bolso-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  /* 1ª camada: textura SVG de linhas onduladas (guilloché de segurança), bem
+     sutil para não prejudicar a legibilidade; demais camadas: brilho + gradiente */
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='40'%3E%3Cg fill='none' stroke='%2310b981' stroke-width='0.6' opacity='0.16'%3E%3Cpath d='M0 10 Q30 0 60 10 T120 10'/%3E%3Cpath d='M0 20 Q30 10 60 20 T120 20'/%3E%3Cpath d='M0 30 Q30 20 60 30 T120 30'/%3E%3C/g%3E%3C/svg%3E") repeat,
+    radial-gradient(120% 120% at 0% 0%, rgba(16,185,129,0.18) 0%, transparent 60%),
+    linear-gradient(135deg, #0f3d2e 0%, #0a2a20 45%, #07150f 100%);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.8),
+              0 0 40px -12px rgba(16, 185, 129, 0.4);
+}
+/* círculos decorativos translúcidos no cartão */
+.bolso-card::before,
+.bolso-card::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.bolso-card::before {
+  width: 220px; height: 220px;
+  top: -90px; right: -60px;
+  background: radial-gradient(circle, rgba(163, 230, 53, 0.22), transparent 70%);
+}
+.bolso-card::after {
+  width: 260px; height: 260px;
+  bottom: -130px; left: -50px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.18), transparent 70%);
+}
+/* brilho diagonal que varre o cartão de tempos em tempos */
+.bolso-card .shine {
+  position: absolute;
+  top: 0; left: -60%;
+  width: 50%; height: 100%;
+  transform: skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(163, 230, 53, 0.12), transparent);
+  animation: card-shine 6s ease-in-out infinite;
+  z-index: 5;
+  pointer-events: none;
+}
+@keyframes card-shine {
+  0%, 60%  { left: -60%; }
+  85%, 100% { left: 130%; }
+}
+
+/* chip do cartão */
+.card-chip {
+  width: 44px; height: 34px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #d9f99d, #84cc16);
+  position: relative;
+}
+.card-chip::before {
+  content: "";
+  position: absolute; inset: 6px;
+  border-radius: 3px;
+  border: 1px solid rgba(7, 21, 15, 0.4);
+  background:
+    linear-gradient(to right, transparent 45%, rgba(7,21,15,.35) 45%, rgba(7,21,15,.35) 55%, transparent 55%),
+    linear-gradient(to bottom, transparent 45%, rgba(7,21,15,.35) 45%, rgba(7,21,15,.35) 55%, transparent 55%);
+}
+
+/* ---------- Item de menu ativo ---------- */
+.nav-item {
+  transition: background-color .2s ease, color .2s ease, transform .15s ease;
+}
+.nav-item:hover { transform: translateX(2px); }
+
+.nav-active {
+  background: linear-gradient(90deg, var(--ff-neon), var(--ff-neon-2));
+  color: #06281f;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+}
+
+/* ---------- Banner promocional 3D da sidebar (Dimensional Layering) ---------- */
+.promo-banner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  /* glassmorphism escuro com borda neon — integra-se ao tema OLED sem cansar a vista */
+  background: linear-gradient(135deg, #0d1a14 0%, #07100c 100%);
+  color: var(--ff-text);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.7),
+    0 0 20px -5px rgba(16, 185, 129, 0.1);
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.promo-banner:hover {
+  transform: translateY(-3px);
+  border-color: rgba(16, 185, 129, 0.45);
+  box-shadow:
+    0 15px 35px -10px rgba(0, 0, 0, 0.8),
+    0 0 25px -2px rgba(16, 185, 129, 0.25);
+}
+/* brilho neon decorativo no canto (profundidade) */
+.promo-banner::before {
+  content: "";
+  position: absolute;
+  width: 120px; height: 120px;
+  top: -60px; right: -40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.22), transparent 70%);
+  pointer-events: none;
+}
+
+/* ---------- Botões de ação rápida ---------- */
+.quick-action {
+  transition: transform .18s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.quick-action:hover {
+  transform: translateY(-4px);
+  border-color: rgba(16, 185, 129, 0.55);
+  box-shadow: 0 10px 26px rgba(16, 185, 129, 0.18);
+}
+
+/* ---------- Linhas da tabela de transações ---------- */
+.tx-row { transition: background-color .15s ease; }
+.tx-row:hover { background-color: rgba(148, 163, 184, 0.06); }
+
+/* ---------- Gráfico de barras ---------- */
+.chart {
+  position: relative;
+}
+/* linhas de grade horizontais (fundo do gráfico) */
+.chart-grid {
+  position: absolute;
+  inset: 0 0 26px 0; /* deixa espaço para os rótulos dos meses */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.chart-grid span {
+  display: block;
+  height: 1px;
+  width: 100%;
+  background: rgba(125, 153, 140, 0.12);
+}
+
+/* barra individual: anima a subida e responde ao hover */
+.bar {
+  position: relative;
+  border-radius: 6px 6px 0 0;
+  transform-origin: bottom;
+  animation: grow-up .9s cubic-bezier(.22,1,.36,1) both;
+  transition: filter .2s ease, transform .2s ease;
+}
+.bar:hover {
+  filter: brightness(1.25) saturate(1.1);
+  transform: scaleX(1.12);
+}
+@keyframes grow-up {
+  from { transform: scaleY(0); opacity: .15; }
+  to   { transform: scaleY(1); opacity: 1; }
+}
+
+/* tooltip com o valor, exibido ao passar o mouse na coluna */
+.bar-group .tip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translate(-50%, 4px);
+  margin-bottom: 8px;
+  white-space: nowrap;
+  background: var(--ff-surface-2);
+  border: 1px solid var(--ff-border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 11px;
+  line-height: 1.4;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+  z-index: 10;
+  box-shadow: 0 8px 20px rgba(0,0,0,.5);
+}
+.bar-group:hover .tip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ---------- Barra de rolagem personalizada ---------- */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--ff-bg); }
+::-webkit-scrollbar-thumb {
+  background: #233048;
+  border-radius: 8px;
+  border: 2px solid var(--ff-bg);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--ff-neon); }
+
+/* ---------- Acessibilidade: foco visível ---------- */
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--ff-neon);
+  outline-offset: 2px;
+}
+
+/* ---------- Respeita usuários que preferem menos animação ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
+
+/* ---------- Sidebar responsiva (mobile) ---------- */
+/* Em telas pequenas a sidebar desliza pela esquerda; o checkbox oculto controla a abertura */
+#nav-toggle { display: none; }
+
+@media (max-width: 1023px) {
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    z-index: 50;
+  }
+  /* a .sidebar está dentro de .app-shell (não é irmã direta do checkbox),
+     por isso alcançamos via combinador descendente */
+  #nav-toggle:checked ~ .app-shell .sidebar { transform: translateX(0); }
+  #nav-toggle:checked ~ .nav-overlay { opacity: 1; pointer-events: auto; }
+  .nav-overlay {
+    position: fixed; inset: 0; z-index: 40;
+    background: rgba(2, 6, 12, 0.6);
+    opacity: 0; pointer-events: none;
+    transition: opacity .25s ease;
+  }
+}

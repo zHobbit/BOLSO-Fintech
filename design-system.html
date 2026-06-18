@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinFlow — Design System</title>
+
+  <!-- Tailwind CSS via CDN (abre direto no navegador, sem instalação) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fonte Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Ícones Tabler -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ffbg: '#0b1120', ffsurface: '#0f172a', ffsurface2: '#131c31',
+            ffborder: '#1e293b', ffneon: '#10b981', ffneon2: '#2dd4bf',
+            ffmuted: '#94a3b8', ffred: '#f43f5e', ffblue: '#3b82f6',
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="min-h-screen px-6 py-10 md:px-12">
+  <div class="mx-auto max-w-5xl">
+
+    <!-- Cabeçalho -->
+    <header class="mb-10 flex items-center gap-4">
+      <div class="neon-glow flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-ffneon to-ffneon2 text-xl font-extrabold text-[#06281f]">FF</div>
+      <div>
+        <h1 class="text-3xl font-extrabold tracking-tight">FinFlow <span class="neon-text">Design System</span></h1>
+        <p class="text-ffmuted">Identidade visual Dark + Neon · guia de aprovação</p>
+      </div>
+    </header>
+
+    <!-- 1. PALETA DE CORES -->
+    <section class="mb-12">
+      <h2 class="mb-1 text-xl font-bold"><span class="neon-text">01.</span> Paleta de cores</h2>
+      <p class="mb-5 text-sm text-ffmuted">Verde neon como cor de marca; azul e vermelho para receitas e despesas.</p>
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        <div class="rounded-xl border border-ffborder bg-ffsurface p-4">
+          <div class="mb-3 h-16 rounded-lg bg-ffneon neon-glow"></div>
+          <p class="font-semibold">Neon / Marca</p><p class="text-xs text-ffmuted">#10b981</p>
+        </div>
+        <div class="rounded-xl border border-ffborder bg-ffsurface p-4">
+          <div class="mb-3 h-16 rounded-lg" style="background:#2dd4bf"></div>
+          <p class="font-semibold">Teal apoio</p><p class="text-xs text-ffmuted">#2dd4bf</p>
+        </div>
+        <div class="rounded-xl border border-ffborder bg-ffsurface p-4">
+          <div class="mb-3 h-16 rounded-lg" style="background:#3b82f6"></div>
+          <p class="font-semibold">Azul / Receitas</p><p class="text-xs text-ffmuted">#3b82f6</p>
+        </div>
+        <div class="rounded-xl border border-ffborder bg-ffsurface p-4">
+          <div class="mb-3 h-16 rounded-lg" style="background:#f43f5e"></div>
+          <p class="font-semibold">Vermelho / Despesas</p><p class="text-xs text-ffmuted">#f43f5e</p>
+        </div>
+        <div class="rounded-xl border border-ffborder bg-ffsurface p-4">
+          <div class="mb-3 h-16 rounded-lg border border-ffborder" style="background:#0b1120"></div>
+          <p class="font-semibold">Fundo</p><p class="text-xs text-ffmuted">#0b1120</p>
+        </div>
+        <div class="rounded-xl border border-ffborder bg-ffsurface p-4">
+          <div class="mb-3 h-16 rounded-lg border border-ffborder" style="background:#0f172a"></div>
+          <p class="font-semibold">Superfície</p><p class="text-xs text-ffmuted">#0f172a</p>
+        </div>
+        <div class="rounded-xl border border-ffborder bg-ffsurface p-4">
+          <div class="mb-3 h-16 rounded-lg" style="background:#e2e8f0"></div>
+          <p class="font-semibold">Texto</p><p class="text-xs text-ffmuted">#e2e8f0</p>
+        </div>
+        <div class="rounded-xl border border-ffborder bg-ffsurface p-4">
+          <div class="mb-3 h-16 rounded-lg" style="background:#94a3b8"></div>
+          <p class="font-semibold">Texto suave</p><p class="text-xs text-ffmuted">#94a3b8</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. TIPOGRAFIA -->
+    <section class="mb-12">
+      <h2 class="mb-1 text-xl font-bold"><span class="neon-text">02.</span> Tipografia — Inter</h2>
+      <p class="mb-5 text-sm text-ffmuted">Uma única família de fonte para todo o sistema.</p>
+      <div class="space-y-3 rounded-xl border border-ffborder bg-ffsurface p-6">
+        <p class="text-3xl font-extrabold">Saldo Total — 800 / 30px</p>
+        <p class="text-xl font-bold">Título de seção — 700 / 20px</p>
+        <p class="text-base font-semibold">Subtítulo / rótulo — 600 / 16px</p>
+        <p class="text-base">Texto padrão do corpo — 400 / 16px</p>
+        <p class="text-sm text-ffmuted">Texto secundário / legenda — 400 / 14px</p>
+      </div>
+    </section>
+
+    <!-- 3. COMPONENTES -->
+    <section class="mb-12">
+      <h2 class="mb-1 text-xl font-bold"><span class="neon-text">03.</span> Componentes</h2>
+      <p class="mb-5 text-sm text-ffmuted">Botões, navegação, cards, badges e campos.</p>
+
+      <div class="grid gap-6 lg:grid-cols-2">
+
+        <!-- Botões -->
+        <div class="rounded-xl border border-ffborder bg-ffsurface p-6">
+          <p class="mb-4 text-sm font-semibold text-ffmuted">Botões</p>
+          <div class="flex flex-wrap gap-3">
+            <button class="neon-glow rounded-lg bg-gradient-to-r from-ffneon to-ffneon2 px-5 py-2.5 font-semibold text-[#06281f]">Primário</button>
+            <button class="rounded-lg border border-ffneon/50 px-5 py-2.5 font-semibold text-ffneon hover:bg-ffneon/10">Secundário</button>
+            <button class="rounded-lg border border-ffborder px-5 py-2.5 font-semibold text-ffmuted hover:text-white">Neutro</button>
+          </div>
+        </div>
+
+        <!-- Navegação -->
+        <div class="rounded-xl border border-ffborder bg-ffsurface p-6">
+          <p class="mb-4 text-sm font-semibold text-ffmuted">Item de menu</p>
+          <div class="space-y-2">
+            <div class="nav-item nav-active flex items-center gap-3 rounded-lg px-4 py-2.5"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+            <div class="nav-item flex items-center gap-3 rounded-lg px-4 py-2.5 text-ffmuted"><i class="ti ti-arrows-exchange"></i> Transferências</div>
+          </div>
+        </div>
+
+        <!-- Card de resumo -->
+        <div class="card-top-line rounded-xl border border-ffborder bg-ffsurface p-6" style="--accent:#10b981">
+          <div class="flex items-start justify-between">
+            <div>
+              <p class="text-sm text-ffmuted">Saldo Total</p>
+              <p class="mt-1 text-3xl font-extrabold neon-text">R$ 48.750,00</p>
+              <p class="mt-2 text-xs text-ffneon"><i class="ti ti-trending-up"></i> +2,4% este mês</p>
+            </div>
+            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-ffneon/15 text-ffneon"><i class="ti ti-currency-dollar"></i></div>
+          </div>
+        </div>
+
+        <!-- Badges + campo -->
+        <div class="rounded-xl border border-ffborder bg-ffsurface p-6">
+          <p class="mb-4 text-sm font-semibold text-ffmuted">Badges &amp; campo</p>
+          <div class="mb-4 flex flex-wrap gap-2">
+            <span class="rounded-full bg-ffneon/15 px-3 py-1 text-xs font-semibold text-ffneon">Receita</span>
+            <span class="rounded-full bg-ffred/15 px-3 py-1 text-xs font-semibold text-ffred">Despesa</span>
+            <span class="rounded-full bg-ffblue/15 px-3 py-1 text-xs font-semibold text-ffblue">PIX</span>
+          </div>
+          <input type="text" placeholder="Buscar transação..." class="w-full rounded-lg border border-ffborder bg-ffbg px-4 py-2.5 text-sm outline-none focus:border-ffneon" />
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. FUNDAMENTOS -->
+    <section class="mb-4">
+      <h2 class="mb-1 text-xl font-bold"><span class="neon-text">04.</span> Fundamentos</h2>
+      <p class="mb-5 text-sm text-ffmuted">Cantos, brilho neon e espaçamento.</p>
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div class="rounded-xl border border-ffborder bg-ffsurface p-5 text-center">
+          <div class="mx-auto mb-3 h-12 w-12 rounded-lg bg-ffsurface2"></div><p class="text-xs text-ffmuted">Canto md · 8px</p>
+        </div>
+        <div class="rounded-xl border border-ffborder bg-ffsurface p-5 text-center">
+          <div class="mx-auto mb-3 h-12 w-12 rounded-xl bg-ffsurface2"></div><p class="text-xs text-ffmuted">Canto lg · 12px</p>
+        </div>
+        <div class="rounded-xl border border-ffborder bg-ffsurface p-5 text-center">
+          <div class="neon-glow mx-auto mb-3 h-12 w-12 rounded-lg bg-ffneon"></div><p class="text-xs text-ffmuted">Brilho neon</p>
+        </div>
+        <div class="rounded-xl border border-ffborder bg-ffsurface p-5 text-center">
+          <div class="neon-border mx-auto mb-3 h-12 w-12 rounded-lg"></div><p class="text-xs text-ffmuted">Borda neon</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

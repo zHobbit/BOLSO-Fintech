@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bolso — Dashboard</title>
+  <meta name="description" content="Bolso — sua grana no bolso: saldo, receitas, despesas, transações e evolução financeira." />
+
+  <!-- Tailwind CSS via CDN: permite abrir o projeto com duplo-clique, sem instalação -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fontes: Space Grotesk (títulos) + DM Sans (corpo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Ícones Tabler (outline, vetoriais — não usamos emojis como ícones) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css" />
+
+  <!-- Paleta da marca disponível como utilitários do Tailwind -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ffbg: '#07100c', ffsurface: '#0d1a14', ffsurface2: '#122418',
+            ffborder: '#1c3328', ffneon: '#10b981', ffneon2: '#a3e635',
+            ffmuted: '#7d998c', ffred: '#fb7185', ffblue: '#38bdf8',
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          },
+          keyframes: {
+            'fade-up': {
+              '0%':   { opacity: '0', transform: 'translateY(16px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            'pulse-dot': {
+              '0%, 100%': { transform: 'scale(1)',   opacity: '1' },
+              '50%':      { transform: 'scale(1.6)', opacity: '.5' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%':      { transform: 'translateY(-6px)' },
+            },
+          },
+          animation: {
+            'fade-up':   'fade-up .6s ease-out both',
+            'pulse-dot': 'pulse-dot 1.8s ease-in-out infinite',
+            float:       'float 5s ease-in-out infinite',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- CSS personalizado, separado do HTML (exigência da atividade) -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Controle do menu lateral no mobile -->
+  <input type="checkbox" id="nav-toggle" aria-hidden="true" />
+  <label for="nav-toggle" class="nav-overlay" aria-label="Fechar menu"></label>
+
+  <div class="app-shell flex min-h-screen">
+
+    <!-- ============================ SIDEBAR ============================ -->
+    <aside class="sidebar flex w-72 shrink-0 flex-col border-r border-ffborder bg-ffsurface">
+      <!-- Logo -->
+      <div class="flex items-center gap-3 px-6 py-6">
+        <div class="neon-glow flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-ffneon to-ffneon2 text-xl text-[#07150f]"><i class="ti ti-wallet" aria-hidden="true"></i></div>
+        <span class="font-display text-2xl font-bold tracking-tight">Bolso<span class="text-ffneon">.</span></span>
+      </div>
+
+      <!-- Navegação principal -->
+      <nav class="flex-1 overflow-y-auto px-4 pb-4">
+        <p class="px-3 pb-2 pt-3 text-xs font-semibold uppercase tracking-wider text-ffmuted">Menu Principal</p>
+        <ul class="space-y-1">
+          <li><a href="#" aria-current="page" class="nav-item nav-active flex items-center gap-3 rounded-xl px-4 py-2.5 cursor-pointer"><i class="ti ti-layout-dashboard text-lg" aria-hidden="true"></i> Dashboard</a></li>
+          <li><a href="#" class="nav-item flex items-center gap-3 rounded-xl px-4 py-2.5 text-ffmuted hover:text-white cursor-pointer"><i class="ti ti-arrows-exchange text-lg" aria-hidden="true"></i> Transferências</a></li>
+          <li><a href="#" class="nav-item flex items-center gap-3 rounded-xl px-4 py-2.5 text-ffmuted hover:text-white cursor-pointer"><i class="ti ti-receipt text-lg" aria-hidden="true"></i> Extrato</a></li>
+          <li><a href="#" class="nav-item flex items-center gap-3 rounded-xl px-4 py-2.5 text-ffmuted hover:text-white cursor-pointer"><i class="ti ti-trending-up text-lg" aria-hidden="true"></i> Investimentos</a></li>
+          <li><a href="#" class="nav-item flex items-center gap-3 rounded-xl px-4 py-2.5 text-ffmuted hover:text-white cursor-pointer"><i class="ti ti-user-plus text-lg" aria-hidden="true"></i> Cadastro</a></li>
+        </ul>
+
+        <p class="px-3 pb-2 pt-6 text-xs font-semibold uppercase tracking-wider text-ffmuted">Conta</p>
+        <ul class="space-y-1">
+          <li><a href="#" class="nav-item flex items-center gap-3 rounded-xl px-4 py-2.5 text-ffmuted hover:text-white cursor-pointer"><i class="ti ti-user text-lg" aria-hidden="true"></i> Perfil</a></li>
+          <li><a href="#" class="nav-item flex items-center gap-3 rounded-xl px-4 py-2.5 text-ffmuted hover:text-white cursor-pointer"><i class="ti ti-settings text-lg" aria-hidden="true"></i> Configurações</a></li>
+          <li><a href="#" class="nav-item flex items-center gap-3 rounded-xl px-4 py-2.5 text-ffmuted hover:text-white cursor-pointer"><i class="ti ti-headset text-lg" aria-hidden="true"></i> Suporte</a></li>
+        </ul>
+      </nav>
+
+      <!-- Banner promocional 3D -->
+      <div class="px-4 pb-2">
+        <div class="promo-banner p-4 text-center">
+          <!-- Ilustração 3D do cartão (SVG inline — sem dependência externa) -->
+          <svg viewBox="0 0 120 96" class="animate-float mx-auto mb-2 h-20 w-auto drop-shadow-[0_10px_15px_rgba(0,0,0,0.5)]" role="img" aria-label="Cartão Bolso Premium">
+            <defs>
+              <linearGradient id="promoCard" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#10b981" />
+                <stop offset="1" stop-color="#a3e635" />
+              </linearGradient>
+            </defs>
+            <g transform="rotate(-8 60 48)">
+              <rect x="24" y="34" width="74" height="46" rx="8" fill="#052e1b" opacity="0.55" />
+              <rect x="22" y="28" width="74" height="46" rx="8" fill="url(#promoCard)" />
+              <rect x="31" y="39" width="14" height="11" rx="2" fill="#052e1b" opacity="0.5" />
+              <rect x="31" y="57" width="42" height="3.5" rx="1.75" fill="#052e1b" opacity="0.4" />
+              <rect x="31" y="63" width="26" height="3.5" rx="1.75" fill="#052e1b" opacity="0.3" />
+            </g>
+          </svg>
+
+          <div class="relative z-10">
+            <span class="mb-2 inline-flex items-center gap-1 rounded-full bg-ffneon/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-ffneon"><i class="ti ti-crown" aria-hidden="true"></i> Bolso Premium</span>
+            <p class="font-display text-sm font-bold leading-tight">Aumente seu limite em até 3x</p>
+            <p class="mt-1 text-[11px] text-ffmuted">Cartão Black de metal sem anuidade.</p>
+            <button class="mt-3 inline-flex w-full items-center justify-center gap-1 rounded-xl bg-gradient-to-r from-ffneon to-ffneon2 px-3 py-2 text-xs font-bold text-[#07150f] transition-all hover:brightness-110 active:scale-[0.98] cursor-pointer">
+              Quero agora <i class="ti ti-arrow-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rodapé do usuário -->
+      <div class="border-t border-ffborder p-4">
+        <div class="flex items-center gap-3 rounded-2xl bg-ffsurface2 p-3">
+          <img src="images/avatar-joao.jpg" alt="Foto de João Costa" class="h-10 w-10 rounded-full border border-ffborder object-cover" />
+          <div class="min-w-0">
+            <p class="truncate text-sm font-semibold">João Costa</p>
+            <p class="truncate text-xs text-ffmuted">joao@bolso.com.br</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============================ CONTEÚDO ============================ -->
+    <main class="flex-1 overflow-x-hidden">
+
+      <!-- Cabeçalho -->
+      <header class="flex flex-wrap items-center justify-between gap-4 px-5 py-5 md:px-8">
+        <div class="flex items-center gap-3">
+          <label for="nav-toggle" class="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-ffborder text-xl lg:hidden" aria-label="Abrir menu">
+            <i class="ti ti-menu-2" aria-hidden="true"></i>
+          </label>
+          <div>
+            <h1 class="text-2xl font-bold md:text-3xl">Bom dia, João! <span aria-hidden="true">👋</span></h1>
+            <p class="text-sm text-ffmuted">Segunda-feira, 28 de Abril de 2026</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button class="relative flex h-11 w-11 items-center justify-center rounded-full border border-ffborder text-xl text-ffmuted hover:text-white cursor-pointer" aria-label="Notificações">
+            <i class="ti ti-bell" aria-hidden="true"></i>
+            <span class="absolute right-2 top-2 h-2 w-2 animate-pulse-dot rounded-full bg-ffred"></span>
+          </button>
+          <div class="flex items-center gap-3 rounded-full border border-ffborder py-1 pl-1 pr-4">
+            <img src="images/avatar-joao.jpg" alt="Avatar de João Costa" class="h-9 w-9 rounded-full object-cover" />
+            <div class="hidden sm:block">
+              <p class="text-sm font-semibold leading-tight">João Costa</p>
+              <p class="text-xs text-ffmuted">Admin</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="px-5 pb-10 md:px-8">
+
+        <!-- ===== HERO: cartão Bolso + receitas/despesas ===== -->
+        <section class="grid grid-cols-1 gap-5 lg:grid-cols-3" aria-label="Resumo financeiro">
+
+          <!-- Cartão estilizado com o saldo (assinatura da marca) -->
+          <article class="bolso-card relative animate-fade-up p-7 lg:col-span-2">
+            <span class="shine" aria-hidden="true"></span>
+            <div class="relative z-10 flex h-full flex-col justify-between gap-8">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="text-sm text-ffneon2/90">Saldo disponível</p>
+                  <p class="mt-1 font-display text-4xl font-bold neon-text md:text-5xl">R$ 48.750,00</p>
+                  <p class="mt-2 flex items-center gap-1 text-xs font-medium text-ffneon"><i class="ti ti-trending-up" aria-hidden="true"></i> +2,4% este mês</p>
+                </div>
+                <span class="font-display text-lg font-bold tracking-tight">Bolso<span class="text-ffneon">.</span></span>
+              </div>
+
+              <div>
+                <div class="mb-4 flex items-center gap-3">
+                  <span class="card-chip" aria-hidden="true"></span>
+                  <i class="ti ti-wifi rotate-90 text-xl text-ffneon2/70" aria-hidden="true"></i>
+                </div>
+                <p class="font-display text-xl tracking-[0.25em] text-white/90">•••• •••• •••• 4827</p>
+                <div class="mt-3 flex items-end justify-between">
+                  <div>
+                    <p class="text-[10px] uppercase tracking-widest text-ffmuted">Titular</p>
+                    <p class="text-sm font-semibold">JOÃO COSTA</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-[10px] uppercase tracking-widest text-ffmuted">Validade</p>
+                    <p class="text-sm font-semibold">04/29</p>
+                  </div>
+                  <i class="ti ti-brand-mastercard text-3xl text-ffneon2" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Receitas + Despesas empilhadas -->
+          <div class="grid grid-cols-1 gap-5 animate-fade-up sm:grid-cols-2 lg:grid-cols-1" style="animation-delay:.12s">
+            <article class="card-top-line rounded-2xl border border-ffborder bg-ffsurface p-6" style="--accent:#38bdf8">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="text-sm text-ffmuted">Receitas (Mês)</p>
+                  <p class="mt-1 font-display text-2xl font-bold text-ffblue">R$ 12.300,00</p>
+                  <p class="mt-2 flex items-center gap-1 text-xs font-medium text-ffblue"><i class="ti ti-arrow-up-right" aria-hidden="true"></i> +8,1%</p>
+                </div>
+                <span class="flex h-11 w-11 items-center justify-center rounded-full bg-ffblue/15 text-lg text-ffblue"><i class="ti ti-arrow-up" aria-hidden="true"></i></span>
+              </div>
+            </article>
+            <article class="card-top-line rounded-2xl border border-ffborder bg-ffsurface p-6" style="--accent:#fb7185">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="text-sm text-ffmuted">Despesas (Mês)</p>
+                  <p class="mt-1 font-display text-2xl font-bold text-ffred">R$ 4.820,00</p>
+                  <p class="mt-2 flex items-center gap-1 text-xs font-medium text-ffred"><i class="ti ti-trending-down" aria-hidden="true"></i> -1,2%</p>
+                </div>
+                <span class="flex h-11 w-11 items-center justify-center rounded-full bg-ffred/15 text-lg text-ffred"><i class="ti ti-arrow-down" aria-hidden="true"></i></span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ===== Ações rápidas ===== -->
+        <section class="mt-8 animate-fade-up" style="animation-delay:.24s" aria-label="Ações rápidas">
+          <h2 class="mb-4 text-lg font-bold">Ações Rápidas</h2>
+          <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+            <button class="quick-action flex flex-col items-center gap-2 rounded-2xl border border-ffborder bg-ffsurface p-5 cursor-pointer">
+              <span class="flex h-12 w-12 items-center justify-center rounded-full bg-ffneon/15 text-xl text-ffneon"><i class="ti ti-arrow-up" aria-hidden="true"></i></span>
+              <span class="text-sm font-medium">Transferir</span>
+            </button>
+            <button class="quick-action flex flex-col items-center gap-2 rounded-2xl border border-ffborder bg-ffsurface p-5 cursor-pointer">
+              <span class="flex h-12 w-12 items-center justify-center rounded-full bg-ffneon/15 text-xl text-ffneon"><i class="ti ti-cash" aria-hidden="true"></i></span>
+              <span class="text-sm font-medium">Pagar</span>
+            </button>
+            <button class="quick-action flex flex-col items-center gap-2 rounded-2xl border border-ffborder bg-ffsurface p-5 cursor-pointer">
+              <span class="flex h-12 w-12 items-center justify-center rounded-full bg-ffneon/15 text-xl text-ffneon"><i class="ti ti-arrow-down" aria-hidden="true"></i></span>
+              <span class="text-sm font-medium">Depositar</span>
+            </button>
+            <button class="quick-action flex flex-col items-center gap-2 rounded-2xl border border-ffborder bg-ffsurface p-5 cursor-pointer">
+              <span class="flex h-12 w-12 items-center justify-center rounded-full bg-ffneon/15 text-xl text-ffneon"><i class="ti ti-arrows-exchange" aria-hidden="true"></i></span>
+              <span class="text-sm font-medium">Câmbio</span>
+            </button>
+            <button class="quick-action col-span-2 flex flex-col items-center gap-2 rounded-2xl border border-ffborder bg-ffsurface p-5 sm:col-span-1 cursor-pointer">
+              <span class="flex h-12 w-12 items-center justify-center rounded-full bg-ffneon/15 text-xl text-ffneon"><i class="ti ti-history" aria-hidden="true"></i></span>
+              <span class="text-sm font-medium">Histórico</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- ===== Transações + Gráfico ===== -->
+        <section class="mt-8 grid grid-cols-1 gap-6 animate-fade-up xl:grid-cols-2" style="animation-delay:.36s">
+
+          <!-- Transações recentes -->
+          <div class="rounded-2xl border border-ffborder bg-ffsurface p-6">
+            <div class="mb-4 flex items-center justify-between">
+              <h2 class="text-lg font-bold">Transações Recentes</h2>
+              <a href="#" class="text-sm font-medium text-ffneon hover:underline cursor-pointer">Ver tudo</a>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm">
+                <thead>
+                  <tr class="border-b border-ffborder text-xs uppercase tracking-wider text-ffmuted">
+                    <th class="pb-3 font-medium">Descrição</th>
+                    <th class="pb-3 font-medium">Data</th>
+                    <th class="pb-3 text-right font-medium">Valor</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-ffborder">
+                  <tr class="tx-row">
+                    <td class="py-3"><div class="flex items-center gap-3"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-ffneon/15 text-ffneon"><i class="ti ti-businessplan" aria-hidden="true"></i></span><div><p class="font-semibold">Salário Empresa ABC</p><p class="text-xs text-ffmuted">Depósito em conta</p></div></div></td>
+                    <td class="py-3 text-ffmuted">28/04</td>
+                    <td class="py-3 text-right font-semibold text-ffneon">+R$ 8.500,00</td>
+                  </tr>
+                  <tr class="tx-row">
+                    <td class="py-3"><div class="flex items-center gap-3"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-ffred/15 text-ffred"><i class="ti ti-device-tv" aria-hidden="true"></i></span><div><p class="font-semibold">Netflix</p><p class="text-xs text-ffmuted">Assinatura mensal</p></div></div></td>
+                    <td class="py-3 text-ffmuted">27/04</td>
+                    <td class="py-3 text-right font-semibold text-ffred">-R$ 55,90</td>
+                  </tr>
+                  <tr class="tx-row">
+                    <td class="py-3"><div class="flex items-center gap-3"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-ffred/15 text-ffred"><i class="ti ti-shopping-cart" aria-hidden="true"></i></span><div><p class="font-semibold">Supermercado</p><p class="text-xs text-ffmuted">Compras</p></div></div></td>
+                    <td class="py-3 text-ffmuted">26/04</td>
+                    <td class="py-3 text-right font-semibold text-ffred">-R$ 312,40</td>
+                  </tr>
+                  <tr class="tx-row">
+                    <td class="py-3"><div class="flex items-center gap-3"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-ffneon/15 text-ffneon"><i class="ti ti-arrow-down-left" aria-hidden="true"></i></span><div><p class="font-semibold">TED Recebida</p><p class="text-xs text-ffmuted">João Silva</p></div></div></td>
+                    <td class="py-3 text-ffmuted">25/04</td>
+                    <td class="py-3 text-right font-semibold text-ffneon">+R$ 1.200,00</td>
+                  </tr>
+                  <tr class="tx-row">
+                    <td class="py-3"><div class="flex items-center gap-3"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-ffred/15 text-ffred"><i class="ti ti-bolt" aria-hidden="true"></i></span><div><p class="font-semibold">Conta de Energia</p><p class="text-xs text-ffmuted">Fatura abril</p></div></div></td>
+                    <td class="py-3 text-ffmuted">20/04</td>
+                    <td class="py-3 text-right font-semibold text-ffred">-R$ 187,30</td>
+                  </tr>
+                  <tr class="tx-row">
+                    <td class="py-3"><div class="flex items-center gap-3"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-ffneon/15 text-ffneon"><i class="ti ti-chart-line" aria-hidden="true"></i></span><div><p class="font-semibold">Rendimento CDB</p><p class="text-xs text-ffmuted">Investimento</p></div></div></td>
+                    <td class="py-3 text-ffmuted">18/04</td>
+                    <td class="py-3 text-right font-semibold text-ffneon">+R$ 243,80</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Evolução financeira (gráfico de barras em CSS) -->
+          <div class="rounded-2xl border border-ffborder bg-ffsurface p-6">
+            <div class="mb-1 flex items-center justify-between">
+              <h2 class="text-lg font-bold">Evolução Financeira</h2>
+              <span class="rounded-full bg-ffneon/10 px-3 py-1 text-xs font-medium text-ffneon">2026</span>
+            </div>
+            <p class="mb-6 text-xs text-ffmuted">Últimos 6 meses</p>
+
+            <div class="chart h-56" role="img" aria-label="Gráfico de barras comparando receitas e despesas nos últimos seis meses. Veja a tabela abaixo para os valores.">
+              <!-- linhas de grade -->
+              <div class="chart-grid" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+
+              <div class="relative flex h-full items-end justify-between gap-2 sm:gap-3">
+                <!-- Jan -->
+                <div class="bar-group flex flex-1 flex-col items-center gap-2">
+                  <div class="flex h-full w-full items-end justify-center gap-1 sm:gap-1.5">
+                    <div class="bar w-3 bg-gradient-to-t from-ffneon to-ffneon2 sm:w-3.5" style="height:60%;animation-delay:.05s"></div>
+                    <div class="bar w-3 bg-ffred/80 sm:w-3.5" style="height:32%;animation-delay:.1s"></div>
+                  </div>
+                  <span class="text-xs text-ffmuted">Jan</span>
+                  <span class="tip"><span class="text-ffneon">R$ 7.200</span> · <span class="text-ffred">R$ 3.840</span></span>
+                </div>
+                <!-- Fev -->
+                <div class="bar-group flex flex-1 flex-col items-center gap-2">
+                  <div class="flex h-full w-full items-end justify-center gap-1 sm:gap-1.5">
+                    <div class="bar w-3 bg-gradient-to-t from-ffneon to-ffneon2 sm:w-3.5" style="height:75%;animation-delay:.15s"></div>
+                    <div class="bar w-3 bg-ffred/80 sm:w-3.5" style="height:45%;animation-delay:.2s"></div>
+                  </div>
+                  <span class="text-xs text-ffmuted">Fev</span>
+                  <span class="tip"><span class="text-ffneon">R$ 9.000</span> · <span class="text-ffred">R$ 5.400</span></span>
+                </div>
+                <!-- Mar -->
+                <div class="bar-group flex flex-1 flex-col items-center gap-2">
+                  <div class="flex h-full w-full items-end justify-center gap-1 sm:gap-1.5">
+                    <div class="bar w-3 bg-gradient-to-t from-ffneon to-ffneon2 sm:w-3.5" style="height:55%;animation-delay:.25s"></div>
+                    <div class="bar w-3 bg-ffred/80 sm:w-3.5" style="height:38%;animation-delay:.3s"></div>
+                  </div>
+                  <span class="text-xs text-ffmuted">Mar</span>
+                  <span class="tip"><span class="text-ffneon">R$ 6.600</span> · <span class="text-ffred">R$ 4.560</span></span>
+                </div>
+                <!-- Abr -->
+                <div class="bar-group flex flex-1 flex-col items-center gap-2">
+                  <div class="flex h-full w-full items-end justify-center gap-1 sm:gap-1.5">
+                    <div class="bar w-3 bg-gradient-to-t from-ffneon to-ffneon2 sm:w-3.5" style="height:92%;animation-delay:.35s"></div>
+                    <div class="bar w-3 bg-ffred/80 sm:w-3.5" style="height:50%;animation-delay:.4s"></div>
+                  </div>
+                  <span class="text-xs text-ffmuted">Abr</span>
+                  <span class="tip"><span class="text-ffneon">R$ 12.300</span> · <span class="text-ffred">R$ 4.820</span></span>
+                </div>
+                <!-- Mai -->
+                <div class="bar-group flex flex-1 flex-col items-center gap-2">
+                  <div class="flex h-full w-full items-end justify-center gap-1 sm:gap-1.5">
+                    <div class="bar w-3 bg-gradient-to-t from-ffneon to-ffneon2 sm:w-3.5" style="height:70%;animation-delay:.45s"></div>
+                    <div class="bar w-3 bg-ffred/80 sm:w-3.5" style="height:40%;animation-delay:.5s"></div>
+                  </div>
+                  <span class="text-xs text-ffmuted">Mai</span>
+                  <span class="tip"><span class="text-ffneon">R$ 8.400</span> · <span class="text-ffred">R$ 4.800</span></span>
+                </div>
+                <!-- Jun -->
+                <div class="bar-group flex flex-1 flex-col items-center gap-2">
+                  <div class="flex h-full w-full items-end justify-center gap-1 sm:gap-1.5">
+                    <div class="bar w-3 bg-gradient-to-t from-ffneon to-ffneon2 sm:w-3.5" style="height:100%;animation-delay:.55s"></div>
+                    <div class="bar w-3 bg-ffred/80 sm:w-3.5" style="height:42%;animation-delay:.6s"></div>
+                  </div>
+                  <span class="text-xs text-ffmuted">Jun</span>
+                  <span class="tip"><span class="text-ffneon">R$ 12.000</span> · <span class="text-ffred">R$ 5.040</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Legenda -->
+            <div class="mt-6 flex items-center gap-6 border-t border-ffborder pt-4 text-sm">
+              <span class="flex items-center gap-2"><span class="h-3 w-3 rounded-sm bg-ffneon"></span> Receitas</span>
+              <span class="flex items-center gap-2"><span class="h-3 w-3 rounded-sm bg-ffred"></span> Despesas</span>
+            </div>
+
+            <!-- Tabela alternativa (acessibilidade) -->
+            <table class="sr-only">
+              <caption>Receitas e despesas por mês (últimos 6 meses)</caption>
+              <thead><tr><th>Mês</th><th>Receitas</th><th>Despesas</th></tr></thead>
+              <tbody>
+                <tr><td>Janeiro</td><td>R$ 7.200</td><td>R$ 3.840</td></tr>
+                <tr><td>Fevereiro</td><td>R$ 9.000</td><td>R$ 5.400</td></tr>
+                <tr><td>Março</td><td>R$ 6.600</td><td>R$ 4.560</td></tr>
+                <tr><td>Abril</td><td>R$ 12.300</td><td>R$ 4.820</td></tr>
+                <tr><td>Maio</td><td>R$ 8.400</td><td>R$ 4.800</td></tr>
+                <tr><td>Junho</td><td>R$ 12.000</td><td>R$ 5.040</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Rodapé -->
+        <footer class="mt-10 text-center text-xs text-ffmuted">
+          © 2026 Bolso · Projeto acadêmico FIAP · Desenvolvido por Victor Holanda (RM571263)
+        </footer>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

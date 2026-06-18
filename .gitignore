@@ -1,0 +1,21 @@
+# Sistema operacional
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Editores / IDEs
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs e temporários
+*.log
+*.tmp
+
+# Arquivos da atividade que NÃO vão para o repositório do site
+# (PDFs do enunciado / fases anteriores)
+*.pdf
+
+# Artefato de entrega (gerado para envio na FIAP, não versionar)
+*.zip
