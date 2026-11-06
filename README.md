@@ -1,46 +1,53 @@
-# Bolso — Dashboard Fintech 💚
+# 💚 Bolso: Fintech Dashboard
 
-Tela de **Dashboard** de uma fintech fictícia chamada **Bolso**, desenvolvida com **HTML**, **CSS** e **Tailwind CSS**. Projeto acadêmico da FIAP (Fase 3 — desenvolvimento das telas a partir do protótipo da Fase 2).
+The **dashboard** screen of **Bolso**, a fictional fintech, built with **HTML**, **CSS** and **Tailwind CSS**. An academic project at FIAP (Phase 3: building the screens from the Phase 2 prototype).
 
-> Identidade visual **Dark + Neon**: verde esmeralda e lime sobre fundo escuro (OLED).
+> Visual identity: **Dark + Neon**, emerald green and lime on a dark (OLED) background.
 
-## ✨ Recursos
+## ✨ Technologies
 
-- **Cartão estilizado** com o saldo (assinatura visual da marca)
-- Cards de **Receitas** e **Despesas** do mês
-- **Ações rápidas** (Transferir, Pagar, Depositar, Câmbio, Histórico)
-- Tabela de **Transações Recentes** com ícones por categoria
-- Gráfico de **Evolução Financeira** (6 meses) com grade, tooltips no hover e animação escalonada
-- **Totalmente responsivo** (menu lateral vira gaveta no mobile)
-- **Animações** puras de CSS/Tailwind (sem JavaScript)
-- Cuidados de **acessibilidade**: contraste, foco visível, `prefers-reduced-motion`, tabela alternativa para leitores de tela
+- Semantic `HTML5`
+- `CSS3` (separate `styles.css`)
+- [`Tailwind CSS`](https://tailwindcss.com/) (via CDN)
+- Fonts: [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk) + [DM Sans](https://fonts.google.com/specimen/DM+Sans)
+- Icons: [Tabler Icons](https://tabler.io/icons)
 
-## 🛠️ Tecnologias
+## 🚀 Features
 
-- HTML5 semântico
-- CSS3 (arquivo `styles.css` separado)
-- [Tailwind CSS](https://tailwindcss.com/) (via CDN)
-- Fontes: [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk) + [DM Sans](https://fonts.google.com/specimen/DM+Sans)
-- Ícones: [Tabler Icons](https://tabler.io/icons)
+- **Styled card** - Shows the balance, the brand's visual signature
+- **Income & expenses** - Monthly summary cards
+- **Quick actions** - Transfer, Pay, Deposit, Exchange, History
+- **Recent transactions** - Table with an icon per category
+- **Financial evolution chart** - 6 months, with a grid, hover tooltips and staggered animation
+- **Fully responsive** - The sidebar turns into a drawer on mobile
+- **CSS-only animations** - Pure CSS/Tailwind, no JavaScript
+- **Accessibility** - Contrast, visible focus, `prefers-reduced-motion` and an alternative table for screen readers
 
-## 🚀 Como executar
+## 📍 The Process
 
-Basta abrir o arquivo **`index.html`** no navegador (duplo-clique). Não precisa instalar nada — o Tailwind é carregado via CDN.
+The goal of this phase was turning a static prototype into a real, responsive screen. I documented the visual identity first, in `design-system.html` (palette, typography and components), so every element on the dashboard pulls from the same tokens. I kept all the animations in CSS on purpose, and the chart got an accessible table alternative so screen readers get the same data the visual shows.
 
-## 📁 Estrutura
+## 🎯 Structure
 
 ```
 .
-├── index.html          # Tela do Dashboard
-├── styles.css          # Estilos personalizados (separados do HTML)
-├── design-system.html  # Guia de identidade visual (paleta, tipografia, componentes)
-├── images/             # Imagens locais (avatar do usuário)
+├── index.html          # Dashboard screen
+├── styles.css          # Custom styles (separate from the HTML)
+├── design-system.html  # Visual identity guide (palette, typography, components)
+├── images/             # Local images (user avatar)
 └── README.md
 ```
 
-> As imagens ficam na pasta `images/` (caminhos relativos), garantindo que o projeto
-> abra corretamente em qualquer máquina, mesmo sem internet.
+> Images live in `images/` with relative paths, so the project opens correctly on any machine, even offline.
 
-## 👨‍💻 Autor
+## 🚦 Running the Project
 
-Victor Holanda — RM571263 · FIAP
+Open **`index.html`** in your browser (double-click). Nothing to install: Tailwind loads from a CDN.
+
+## 🎞️ Preview
+
+<!-- TODO: add a screenshot of the dashboard -->
+
+## 👤 Author
+
+Victor Holanda · FIAP
